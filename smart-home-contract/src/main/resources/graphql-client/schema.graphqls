@@ -1,0 +1,154 @@
+enum DeviceType {
+  LIGHT
+  CONDITIONER
+  HEATER
+  DOOR_LOCK
+  CAMERA
+  CUSTOM
+}
+
+enum DeviceStatus {
+  ON
+  OFF
+  STANDBY
+  ERROR
+  UNKNOWN
+}
+
+enum CommandAction {
+  TURN_ON
+  TURN_OFF
+  RESTART
+  LOCK
+  UNLOCK
+  SET_TEMPERATURE
+  CUSTOM
+}
+
+enum CommandStatus {
+  PENDING
+  IN_PROGRESS
+  SUCCESS
+  FAILED
+}
+
+enum SensorType {
+  TEMPERATURE
+  HUMIDITY
+  MOTION
+  LIGHT
+  DOOR
+  CUSTOM
+}
+
+type Device {
+  id: ID!
+  name: String
+  type: DeviceType
+  location: String
+  metadata: String
+  status: DeviceStatus
+}
+
+type Sensor {
+  id: ID!
+  name: String
+  type: SensorType
+  location: String
+}
+
+type SensorReading {
+  id: ID!
+  sensor: Sensor
+  value: Float
+  unit: String
+  timestamp: String
+}
+
+type Command {
+  id: ID!
+  device: Device
+  action: CommandAction
+  value: String
+  status: CommandStatus
+  message: String
+}
+
+type SensorReadingPage {
+  content: [SensorReading]
+  pageNumber: Int
+  pageSize: Int
+  totalElements: Int
+  totalPages: Int
+  last: Boolean
+}
+
+type CommandPage {
+  content: [Command]
+  pageNumber: Int
+  pageSize: Int
+  totalElements: Int
+  totalPages: Int
+  last: Boolean
+}
+
+input DeviceInput {
+  name: String!
+  type: DeviceType!
+  location: String!
+  metadata: String
+}
+
+input UpdateDeviceStatusInput {
+  status: DeviceStatus!
+}
+
+input SensorInput {
+  name: String!
+  type: SensorType!
+  location: String!
+}
+
+input SensorReadingInput {
+  sensorId: ID!
+  value: Float!
+  unit: String!
+  timestamp: String!
+}
+
+input CommandInput {
+  deviceId: ID!
+  action: CommandAction!
+  value: String
+}
+
+type Query {
+  devices: [Device]
+  deviceById(id: ID!): Device
+
+  sensors: [Sensor]
+  sensorById(id: ID!): Sensor
+
+  readings(sensorId: ID, page: Int = 0, size: Int = 10): SensorReadingPage
+  readingById(id: ID!): SensorReading
+
+  commands(deviceId: ID, page: Int = 0, size: Int = 10): CommandPage
+  commandById(id: ID!): Command
+}
+
+type Mutation {
+  createDevice(input: DeviceInput!): Device
+  updateDeviceStatus(id: ID!, input: UpdateDeviceStatusInput!): Device
+  deleteDevice(id: ID!): ID
+
+  createSensor(input: SensorInput!): Sensor
+  updateSensor(id: ID!, input: SensorInput!): Sensor
+  deleteSensor(id: ID!): ID
+
+  createReading(input: SensorReadingInput!): SensorReading
+  deleteReading(id: ID!): ID
+
+  createCommand(input: CommandInput!): Command
+  updateCommand(id: ID!, input: CommandInput!): Command
+  deleteCommand(id: ID!): ID
+}
