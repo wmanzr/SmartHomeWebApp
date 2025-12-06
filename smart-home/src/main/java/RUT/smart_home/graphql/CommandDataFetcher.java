@@ -27,7 +27,7 @@ public class CommandDataFetcher {
             @InputArgument Long deviceId,
             @InputArgument int page,
             @InputArgument int size) {
-        return commandService.getAllCommands(deviceId, page, size);
+        return commandService.getAll(deviceId, page, size);
     }
 
     @DgsQuery

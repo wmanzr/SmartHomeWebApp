@@ -3,7 +3,6 @@ package RUT.smart_home;
 import RUT.smart_home.entity.*;
 import RUT.smart_home.repository.*;
 import RUT.smart_home_contract.api.dto.*;
-import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.boot.CommandLineRunner;
@@ -50,9 +49,8 @@ public class Clr implements CommandLineRunner {
                 sensorRepository.findAll().isEmpty() &&
                 commandRepository.findAll().isEmpty()) {
 
-        // ====== Создаем устройства ======
         Device livingLamp = new Device(
-                "Лампа в гостиной",
+                "Лампа",
                 DeviceType.LIGHT,
                 "Гостиная",
                 null,
@@ -76,33 +74,41 @@ public class Clr implements CommandLineRunner {
         );
 
         Device coffeeMachine = new Device(
-                "Кофемашина на кухне",
-                DeviceType.CUSTOM,
-                "Кухня",
+                "Кондиционер",
+                DeviceType.CONDITIONER,
+                "Гостиная",
                 null,
                 DeviceStatus.OFF
         );
+
+            Device humidifier = new Device(
+                    "Увлажнитель воздуха",
+                    DeviceType.HUMIDIFIER,
+                    "Кухня",
+                    null,
+                    DeviceStatus.OFF
+            );
 
         deviceRepository.create(livingLamp);
         deviceRepository.create(heater);
         deviceRepository.create(doorLock);
         deviceRepository.create(coffeeMachine);
+        deviceRepository.create(humidifier);
 
-        // ====== Создаем сенсоры ======
         Sensor tempLiving = new Sensor(
-                "Датчик температуры гостиной",
+                "Датчик температуры",
                 SensorType.TEMPERATURE,
                 "Гостиная"
         );
 
         Sensor motionHall = new Sensor(
-                "Датчик движения прихожей",
+                "Датчик движения",
                 SensorType.MOTION,
                 "Прихожая"
         );
 
         Sensor humidityKitchen = new Sensor(
-                "Датчик влажности кухни",
+                "Датчик влажности",
                 SensorType.HUMIDITY,
                 "Кухня"
         );
@@ -111,7 +117,6 @@ public class Clr implements CommandLineRunner {
         sensorRepository.create(motionHall);
         sensorRepository.create(humidityKitchen);
 
-        // ====== Создаем показания ======
         SensorReading reading1 = new SensorReading(
                 tempLiving,
                 22.3,
@@ -137,7 +142,6 @@ public class Clr implements CommandLineRunner {
         sensorReadingRepository.create(reading2);
         sensorReadingRepository.create(reading3);
 
-        // ====== Создаем команды ======
         Command command1 = new Command(
                 livingLamp,
                 CommandAction.TURN_ON,
@@ -162,18 +166,9 @@ public class Clr implements CommandLineRunner {
                 "Замок активирован"
         );
 
-        Command command4 = new Command(
-                coffeeMachine,
-                CommandAction.TURN_ON,
-                null,
-                CommandStatus.PENDING,
-                "Запуск кофемашины"
-        );
-
         commandRepository.create(command1);
         commandRepository.create(command2);
         commandRepository.create(command3);
-        commandRepository.create(command4);
 
             System.out.println("Тестовые данные успешно созданы!");
         } else {

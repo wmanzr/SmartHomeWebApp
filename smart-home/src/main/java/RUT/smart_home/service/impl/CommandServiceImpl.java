@@ -19,7 +19,6 @@ import java.util.stream.Stream;
 
 @Service
 public class CommandServiceImpl implements CommandService {
-
     private final CommandRepository commandRepository;
     private final ModelMapper modelMapper;
     private final DeviceService deviceService;
@@ -38,7 +37,7 @@ public class CommandServiceImpl implements CommandService {
     }
 
     @Override
-    public PagedResponse<CommandResponse> getAllCommands(Long deviceId, int page, int size) {
+    public PagedResponse<CommandResponse> getAll(Long deviceId, int page, int size) {
         Stream<Command> commandsStream = commandRepository.findAll().stream()
                 .sorted((r1, r2) -> r1.getId().compareTo(r2.getId()));
 

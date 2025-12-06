@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "RUT.smart_home_analytics_service";
+
+service SensorAnalyticsService {
+  rpc AnalyzeSensorData (SensorDataRequest) returns (SensorDecisionResponse) {}
+}
+
+message SensorDataRequest {
+  int64 reading_id = 1;
+  int64 sensor_id = 2;
+  string sensor_type = 3;
+  double value = 4;
+  string timestamp = 5;
+}
+
+message SensorDecisionResponse {
+  bool should_execute = 1;
+  int64 sensor_id = 2;
+  string sensor_type = 3;
+  string command_action = 4;
+  string command_value = 5;
+}

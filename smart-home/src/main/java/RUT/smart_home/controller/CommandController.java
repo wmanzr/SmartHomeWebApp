@@ -31,7 +31,7 @@ public class CommandController implements CommandApi {
 
     @Override
     public PagedModel<EntityModel<CommandResponse>> getAllCommands(Long deviceId, int page, int size) {
-        PagedResponse<CommandResponse> pagedResponse = commandService.getAllCommands(deviceId, page, size);
+        PagedResponse<CommandResponse> pagedResponse = commandService.getAll(deviceId, page, size);
         Page<CommandResponse> commandPage = new PageImpl<>(
                 pagedResponse.content(),
                 PageRequest.of(pagedResponse.pageNumber(), pagedResponse.pageSize()),

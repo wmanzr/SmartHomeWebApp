@@ -7,7 +7,7 @@ import RUT.smart_home_contract.api.dto.PagedResponse;
 
 public interface CommandService {
 
-    PagedResponse<CommandResponse> getAllCommands(Long deviceId, int page, int size);
+    PagedResponse<CommandResponse> getAll(Long deviceId, int page, int size);
 
     CommandResponse getById(Long id);
 

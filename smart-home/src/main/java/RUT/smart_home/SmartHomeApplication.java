@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
 
-@SpringBootApplication(scanBasePackages = {"RUT.smart_home", "RUT.smart_home_contract"})
+@SpringBootApplication(scanBasePackages = {"RUT.smart_home", "RUT.smart_home_contract", "RUT.smart_home_events_contract"})
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class SmartHomeApplication {
 	public static void main(String[] args) {
