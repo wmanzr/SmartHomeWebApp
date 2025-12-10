@@ -4,7 +4,5 @@ public enum SensorType {
     TEMPERATURE,
     HUMIDITY,
     MOTION,
-    LIGHT,
-    DOOR,
-    CUSTOM
+    LIGHT_LEVEL
 }

@@ -4,8 +4,9 @@ public enum CommandAction {
     TURN_ON,
     TURN_OFF,
     RESTART,
-    LOCK,
-    UNLOCK,
     SET_TEMPERATURE,
-    CUSTOM
+    ACTIVATE_ALARM,
+    DEACTIVATE_ALARM,
+    OPEN_BLINDS,
+    CLOSE_BLINDS
 }
