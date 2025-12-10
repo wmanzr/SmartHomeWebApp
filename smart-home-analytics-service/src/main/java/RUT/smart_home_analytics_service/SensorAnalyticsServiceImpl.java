@@ -3,71 +3,53 @@ package RUT.smart_home_analytics_service;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 @GrpcService
+
 public class SensorAnalyticsServiceImpl extends SensorAnalyticsServiceGrpc.SensorAnalyticsServiceImplBase {
+    private final TemperatureAnalyzer temperatureAnalyzer;
+    private final HumidityAnalyzer humidityAnalyzer;
+    private final MotionAnalyzer motionAnalyzer;
+    private final LightLevelAnalyzer lightLevelAnalyzer;
+
+    public SensorAnalyticsServiceImpl() {
+        this.temperatureAnalyzer = new TemperatureAnalyzer();
+        this.humidityAnalyzer = new HumidityAnalyzer();
+        this.motionAnalyzer = new MotionAnalyzer();
+        this.lightLevelAnalyzer = new LightLevelAnalyzer();
+    }
+
     @Override
     public void analyzeSensorData(SensorDataRequest request, StreamObserver<SensorDecisionResponse> responseObserver) {
+        try {
+            SensorAnalyzer analyzer = getAnalyzer(request.getSensorType());
+            Decision decision = analyzer.analyze(request.getValue());
 
-        long readingId = request.getReadingId();
-        long sensorId = request.getSensorId();
-        String type = request.getSensorType();
-        double value = request.getValue();
+            SensorDecisionResponse response = buildResponse(request, decision);
 
-        boolean shouldExecute = false;
-        String commandAction = "";
-        String commandValue = "";
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
 
-        switch (type.toLowerCase()) {
-
-            case "temperature" -> {
-                if (value > 26) {
-                    shouldExecute = true;
-                    commandAction = CommandAction.SET_TEMPERATURE.name();
-                    commandValue = "21";
-                } else if (value < 18) {
-                    shouldExecute = true;
-                    commandAction = CommandAction.SET_TEMPERATURE.name();
-                    commandValue = "23";
-                } else {
-                    shouldExecute = false;
-                }
-            }
-
-            case "humidity" -> {
-                if (value > 60) {
-                    shouldExecute = true;
-                    commandAction = CommandAction.TURN_OFF.name();
-                } else if (value < 35) {
-                    shouldExecute = true;
-                    commandAction = CommandAction.TURN_ON.name();
-                } else {
-                    shouldExecute = false;
-                }
-            }
-
-            case "smoke" -> {
-                if (value > 0.5) {
-                    shouldExecute = true;
-                    commandAction = CommandAction.LOCK.name();
-                } else {
-                    shouldExecute = false;
-                }
-            }
-
-            default -> {
-                shouldExecute = false;
-                commandAction = CommandAction.CUSTOM.name();
-            }
+        } catch (Exception e) {
+            responseObserver.onError(e);
         }
+    }
 
-        SensorDecisionResponse response = SensorDecisionResponse.newBuilder()
-                .setShouldExecute(shouldExecute)
-                .setSensorId(sensorId)
-                .setSensorType(type)
-                .setCommandAction(commandAction)
-                .setCommandValue(commandValue)
+    private SensorAnalyzer getAnalyzer(String sensorType) {
+        return switch (sensorType.toUpperCase()) {
+            case "TEMPERATURE" -> temperatureAnalyzer;
+            case "HUMIDITY" -> humidityAnalyzer;
+            case "MOTION" -> motionAnalyzer;
+            case "LIGHT_LEVEL" -> lightLevelAnalyzer;
+            default -> throw new IllegalArgumentException("Unknown sensor type: " + sensorType);
+        };
+    }
+
+    private SensorDecisionResponse buildResponse(SensorDataRequest request, Decision decision) {
+        return SensorDecisionResponse.newBuilder()
+                .setShouldExecute(decision.shouldExecute())
+                .setSensorId(request.getSensorId())
+                .setSensorType(request.getSensorType().toUpperCase())
+                .setCommandAction(decision.commandAction())
+                .setCommandValue(decision.commandValue())
                 .build();
-
-        responseObserver.onNext(response);
-        responseObserver.onCompleted();
     }
 }
