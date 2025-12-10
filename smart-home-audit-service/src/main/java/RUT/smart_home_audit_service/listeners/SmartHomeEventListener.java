@@ -279,16 +279,4 @@ public class SmartHomeEventListener {
             channel.basicNack(deliveryTag, false, false);
         }
     }
-
-    @RabbitListener(
-            bindings = @QueueBinding(
-                    value = @Queue(name = "notification-queue.dlq", durable = "true"),
-                    exchange = @Exchange(name = "dlx-exchange", type = "topic", durable = "true"),
-                    key = "dlq.notifications"
-            )
-    )
-    public void handleDlqMessages(Object failedMessage) {
-        log.error("!!! Received message in DLQ: {}", failedMessage);
-        // TODO
-    }
 }

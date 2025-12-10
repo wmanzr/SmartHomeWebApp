@@ -29,6 +29,13 @@ public class CallCommandListener {
     public void handleRating(@Payload CallCommandEventFromSensorReading event,
                              Channel channel,
                              @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) throws IOException {
-        log.info("Уведомление: Получено показание с датчика. Требуется команда для устройства с ID {} с дейтсвием {}", event.deviceId(), event.commandAction());
+        try {
+            log.info("Уведомление: Получено показание с датчика. Требуется команда для устройства с ID {} с действием {}",
+                    event.deviceId(), event.commandAction());
+            channel.basicAck(deliveryTag, false);
+        } catch (Exception e) {
+            log.error("Ошибка обработки события: {}", event, e);
+            channel.basicNack(deliveryTag, false, false);
+        }
     }
 }
