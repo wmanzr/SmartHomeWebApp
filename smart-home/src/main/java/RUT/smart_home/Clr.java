@@ -49,37 +49,29 @@ public class Clr implements CommandLineRunner {
                 sensorRepository.findAll().isEmpty() &&
                 commandRepository.findAll().isEmpty()) {
 
-        Device livingLamp = new Device(
-                "Лампа",
-                DeviceType.LIGHT,
-                "Гостиная",
-                null,
-                DeviceStatus.OFF
-        );
+            Device blinds = new Device(
+                    "Шторы",
+                    DeviceType.BLINDS,
+                    "Гостиная",
+                    null,
+                    DeviceStatus.STANDBY
+            );
 
-        Device heater = new Device(
-                "Обогреватель",
-                DeviceType.HEATER,
-                "Гостиная",
-                null,
-                DeviceStatus.ON
-        );
+            Device alarm = new Device(
+                    "Сигнализация",
+                    DeviceType.ALARM,
+                    "Прихожая",
+                    null,
+                    DeviceStatus.OFF
+            );
 
-        Device doorLock = new Device(
-                "Замок входной двери",
-                DeviceType.DOOR_LOCK,
-                "Прихожая",
-                null,
-                DeviceStatus.ON
-        );
-
-        Device coffeeMachine = new Device(
-                "Кондиционер",
-                DeviceType.CONDITIONER,
-                "Гостиная",
-                null,
-                DeviceStatus.OFF
-        );
+            Device conditioner = new Device(
+                    "Кондиционер",
+                    DeviceType.CONDITIONER,
+                    "Гостиная",
+                    null,
+                    DeviceStatus.OFF
+            );
 
             Device humidifier = new Device(
                     "Увлажнитель воздуха",
@@ -89,86 +81,83 @@ public class Clr implements CommandLineRunner {
                     DeviceStatus.OFF
             );
 
-        deviceRepository.create(livingLamp);
-        deviceRepository.create(heater);
-        deviceRepository.create(doorLock);
-        deviceRepository.create(coffeeMachine);
-        deviceRepository.create(humidifier);
+            deviceRepository.create(blinds);
+            deviceRepository.create(alarm);
+            deviceRepository.create(conditioner);
+            deviceRepository.create(humidifier);
 
-        Sensor tempLiving = new Sensor(
-                "Датчик температуры",
-                SensorType.TEMPERATURE,
-                "Гостиная"
-        );
+            Sensor tempLiving = new Sensor(
+                    "Датчик температуры",
+                    SensorType.TEMPERATURE,
+                    "Гостиная"
+            );
 
-        Sensor motionHall = new Sensor(
-                "Датчик движения",
-                SensorType.MOTION,
-                "Прихожая"
-        );
+            Sensor motionHall = new Sensor(
+                    "Датчик движения",
+                    SensorType.MOTION,
+                    "Прихожая"
+            );
 
-        Sensor humidityKitchen = new Sensor(
-                "Датчик влажности",
-                SensorType.HUMIDITY,
-                "Кухня"
-        );
+            Sensor humidityKitchen = new Sensor(
+                    "Датчик влажности",
+                    SensorType.HUMIDITY,
+                    "Кухня"
+            );
 
-        sensorRepository.create(tempLiving);
-        sensorRepository.create(motionHall);
-        sensorRepository.create(humidityKitchen);
+            Sensor light_level = new Sensor(
+                    "Датчик освещенности",
+                    SensorType.LIGHT_LEVEL,
+                    "Гостиная"
+            );
 
-        SensorReading reading1 = new SensorReading(
-                tempLiving,
-                22.3,
-                "°C",
-                LocalDateTime.now().minusMinutes(10)
-        );
+            sensorRepository.create(tempLiving);
+            sensorRepository.create(motionHall);
+            sensorRepository.create(humidityKitchen);
+            sensorRepository.create(light_level);
 
-        SensorReading reading2 = new SensorReading(
-                motionHall,
-                0.0,
-                "boolean",
-                LocalDateTime.now().minusMinutes(3)
-        );
+            SensorReading reading1 = new SensorReading(
+                    tempLiving,
+                    22.3,
+                    "°C",
+                    LocalDateTime.now().minusMinutes(10)
+            );
 
-        SensorReading reading3 = new SensorReading(
-                humidityKitchen,
-                45.0,
-                "%",
-                LocalDateTime.now()
-        );
+            SensorReading reading2 = new SensorReading(
+                    motionHall,
+                    0.0,
+                    "boolean",
+                    LocalDateTime.now().minusMinutes(3)
+            );
 
-        sensorReadingRepository.create(reading1);
-        sensorReadingRepository.create(reading2);
-        sensorReadingRepository.create(reading3);
+            SensorReading reading3 = new SensorReading(
+                    humidityKitchen,
+                    45.0,
+                    "%",
+                    LocalDateTime.now()
+            );
 
-        Command command1 = new Command(
-                livingLamp,
-                CommandAction.TURN_ON,
-                null,
-                CommandStatus.SUCCESS,
-                "Лампа включена"
-        );
+            sensorReadingRepository.create(reading1);
+            sensorReadingRepository.create(reading2);
+            sensorReadingRepository.create(reading3);
 
-        Command command2 = new Command(
-                heater,
-                CommandAction.SET_TEMPERATURE,
-                "23",
-                CommandStatus.SUCCESS,
-                "Температура установлена на 23°C"
-        );
+            Command command1 = new Command(
+                    blinds,
+                    CommandAction.TURN_ON,
+                    null,
+                    CommandStatus.SUCCESS,
+                    "Шторы закрыты"
+            );
 
-        Command command3 = new Command(
-                doorLock,
-                CommandAction.LOCK,
-                null,
-                CommandStatus.SUCCESS,
-                "Замок активирован"
-        );
+            Command command2 = new Command(
+                    conditioner,
+                    CommandAction.SET_TEMPERATURE,
+                    "23",
+                    CommandStatus.SUCCESS,
+                    "Температура установлена на 23°C"
+            );
 
-        commandRepository.create(command1);
-        commandRepository.create(command2);
-        commandRepository.create(command3);
+            commandRepository.create(command1);
+            commandRepository.create(command2);
 
             System.out.println("Тестовые данные успешно созданы!");
         } else {

@@ -24,7 +24,7 @@ public class InternalAnalyticsListener {
             )
     )
     public void createCommandByAnalytics(CallCommandEventFromSensorReading event) {
-        System.out.println("Required command with : " +
+        System.out.println(" Required command with : " +
                 "deviceId=" + event.deviceId() +
                 ", sensorType=" + event.sensorType() +
                 ", value=" + event.value() +
@@ -36,7 +36,7 @@ public class InternalAnalyticsListener {
             CommandRequest commandRequest = new CommandRequest(
                     event.deviceId(),
                     CommandAction.valueOf(event.commandAction()),
-                    event.value() != null ? event.value().toString() : null
+                    event.value() != null ? event.value() : null
             );
 
             commandService.create(commandRequest);

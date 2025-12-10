@@ -134,13 +134,9 @@ public class SensorReadingServiceImpl implements SensorReadingService {
             return DeviceType.CONDITIONER;
         } else if (sensor.equals("humidity")) {
             return DeviceType.HUMIDIFIER;
-        } else if (action.equals("LOCK") || action.equals("UNLOCK")) {
-            return DeviceType.DOOR_LOCK;
-        } else if (action.equals("SET_TEMPERATURE")) {
-            return DeviceType.CONDITIONER;
-        }
-
-        return DeviceType.CUSTOM;
+        } else if (action.equals("open_blinds") || action.equals("close_blinds")) {
+            return DeviceType.BLINDS;
+        } else return DeviceType.ALARM;
     }
 
     private Device findDeviceByType(DeviceType deviceType) {

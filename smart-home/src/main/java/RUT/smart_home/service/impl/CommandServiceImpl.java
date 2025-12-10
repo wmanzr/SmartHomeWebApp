@@ -77,7 +77,7 @@ public class CommandServiceImpl implements CommandService {
     public CommandResponse create(CommandRequest request) {
         deviceService.getById(request.deviceId());
 
-        CommandAction action = request.action() == null ? CommandAction.CUSTOM : request.action();
+        CommandAction action = request.action();
         String value = request.value() == null ? "Без значения" : request.value();
 
         Command cmd = new Command(

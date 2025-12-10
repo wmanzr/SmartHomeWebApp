@@ -146,14 +146,14 @@
 		<dependency>
 			<groupId>RUT.smart_home</groupId>
 			<artifactId>smart-home-events-contract</artifactId>
-			<version>1.6</version>
+			<version>1.7</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/smart-home-events-contract.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>RUT.smart_home</groupId>
 			<artifactId>smart-home-contract</artifactId>
-			<version>1.6.4</version>
+			<version>1.6.5</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/smart-home-contract.jar</systemPath>
 		</dependency>

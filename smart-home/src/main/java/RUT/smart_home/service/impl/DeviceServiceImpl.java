@@ -55,7 +55,7 @@ public class DeviceServiceImpl implements DeviceService {
             throw new ResourceAlreadyExistsException("Device", request.name());
         }
 
-        DeviceType deviceType = request.type() != null ? request.type() : DeviceType.CUSTOM;
+        DeviceType deviceType = request.type();
 
         Device device = new Device(
                 request.name(),
