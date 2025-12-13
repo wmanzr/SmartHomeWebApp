@@ -1,8 +1,9 @@
 package RUT.smart_home.controller;
 
+import RUT.smart_home.CommandData;
 import RUT.smart_home.SensorAnalyticsServiceGrpc;
 import RUT.smart_home.SensorDataRequest;
-import RUT.smart_home.SensorDecisionResponse;
+import RUT.smart_home.DecisionResponse;
 import RUT.smart_home.assemblers.SensorReadingModelAssembler;
 import RUT.smart_home.config.RabbitMQConfig;
 import RUT.smart_home.service.SensorReadingService;
@@ -22,8 +23,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.time.ZoneId;
 
 @RestController
 public class SensorReadingController implements SensorReadingApi {
@@ -84,16 +83,18 @@ public class SensorReadingController implements SensorReadingApi {
                 .setTimestamp(reading.getTimestamp().toString())
                 .build();
         try {
-            SensorDecisionResponse gRpcResponse = analyticsStub.analyzeSensorData(request);
+            DecisionResponse decision = analyticsStub.analyzeSensorData(request);
 
-            if (gRpcResponse.getShouldExecute()) {
-                CallCommandEventFromSensorReading event = sensorReadingService.callCommand(gRpcResponse, reading);
+            if (decision.getShouldExecute()) {
+                CommandData commandData = decision.getCommandData();
+                CallCommandEventFromSensorReading event = sensorReadingService.callCommand(decision, reading);
                 rabbitTemplate.convertAndSend(RabbitMQConfig.FANOUT_EXCHANGE, "", event);
-                return "Analytics decision: execute=" + gRpcResponse.getShouldExecute()
-                        + ", action=" + gRpcResponse.getCommandAction()
-                        + ", value=" + gRpcResponse.getCommandValue();
+
+                return "Analytics decision: execute=" + decision.getShouldExecute()
+                        + ", action=" + commandData.getCommandAction()
+                        + ", value=" + commandData.getCommandValue();
             } else {
-                return "Analytics decision: no action required (execute=false)";
+                return "No action required";
             }
 
         } catch (io.grpc.StatusRuntimeException e) {

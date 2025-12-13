@@ -1,6 +1,6 @@
 package RUT.smart_home.service;
 
-import RUT.smart_home.SensorDecisionResponse;
+import RUT.smart_home.DecisionResponse;
 import RUT.smart_home_contract.api.dto.PagedResponse;
 import RUT.smart_home_contract.api.dto.SensorReadingRequest;
 import RUT.smart_home_contract.api.dto.SensorReadingResponse;
@@ -14,5 +14,5 @@ public interface SensorReadingService {
 
     SensorReadingResponse create(SensorReadingRequest request);
 
-    CallCommandEventFromSensorReading callCommand(SensorDecisionResponse response, SensorReadingResponse reading);
+    CallCommandEventFromSensorReading callCommand(DecisionResponse response, SensorReadingResponse reading);
 }

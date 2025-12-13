@@ -1,6 +1,6 @@
 package RUT.smart_home.service.impl;
 
-import RUT.smart_home.SensorDecisionResponse;
+import RUT.smart_home.DecisionResponse;
 import RUT.smart_home.config.RabbitMQConfig;
 import RUT.smart_home.entity.Device;
 import RUT.smart_home.entity.Sensor;
@@ -104,13 +104,14 @@ public class SensorReadingServiceImpl implements SensorReadingService {
 
     @Override
     @Transactional
-    public CallCommandEventFromSensorReading callCommand(SensorDecisionResponse response, SensorReadingResponse reading) {
+    public CallCommandEventFromSensorReading callCommand(DecisionResponse response, SensorReadingResponse reading) {
 
         if (!response.getShouldExecute()) {
             throw new IllegalStateException("Command should not be executed according to analytics decision");
         }
 
-        DeviceType targetDeviceType = determineDeviceType(response.getSensorType(), response.getCommandAction());
+        var commandData = response.getCommandData();
+        DeviceType targetDeviceType = determineDeviceType(response.getSensorType(), commandData.getCommandAction());
         Device targetDevice = findDeviceByType(targetDeviceType);
 
         if (targetDevice == null) {
@@ -119,9 +120,9 @@ public class SensorReadingServiceImpl implements SensorReadingService {
         return new CallCommandEventFromSensorReading(
                 targetDevice.getId(),
                 response.getSensorType(),
-                response.getCommandValue(),
+                commandData.getCommandValue(),
                 response.getShouldExecute(),
-                response.getCommandAction(),
+                commandData.getCommandAction(),
                 System.currentTimeMillis()
         );
     }
