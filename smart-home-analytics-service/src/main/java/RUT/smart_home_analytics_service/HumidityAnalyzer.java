@@ -5,15 +5,7 @@ class HumidityAnalyzer implements SensorAnalyzer {
     private static final double LOW_THRESHOLD = 40.0;
 
     @Override
-    public Decision analyze(double humidity) {
-        if (humidity > HIGH_THRESHOLD) {
-            return Decision.execute("TURN_OFF");
-        }
-
-        if (humidity < LOW_THRESHOLD) {
-            return Decision.execute("TURN_ON");
-        }
-
-        return Decision.noAction();
+    public boolean shouldExecuteCommand(double humidity) {
+        return humidity > HIGH_THRESHOLD || humidity < LOW_THRESHOLD;
     }
 }

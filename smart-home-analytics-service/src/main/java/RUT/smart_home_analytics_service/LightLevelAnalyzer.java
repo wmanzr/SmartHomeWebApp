@@ -5,15 +5,7 @@ class LightLevelAnalyzer implements SensorAnalyzer {
     private static final double DARK_THRESHOLD = 30.0;
 
     @Override
-    public Decision analyze(double lightLevel) {
-        if (lightLevel > BRIGHT_THRESHOLD) {
-            return Decision.execute("CLOSE_BLINDS");
-        }
-
-        if (lightLevel < DARK_THRESHOLD) {
-            return Decision.execute("OPEN_BLINDS");
-        }
-
-        return Decision.noAction();
+    public boolean shouldExecuteCommand(double lightLevel) {
+        return lightLevel > BRIGHT_THRESHOLD || lightLevel < DARK_THRESHOLD;
     }
 }
