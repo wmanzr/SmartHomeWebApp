@@ -4,7 +4,7 @@ option java_multiple_files = true;
 option java_package = "RUT.smart_home_analytics_service";
 
 service SensorAnalyticsService {
-  rpc AnalyzeSensorData (SensorDataRequest) returns (SensorDecisionResponse) {}
+  rpc AnalyzeSensorData (SensorDataRequest) returns (DecisionResponse) {}
 }
 
 message SensorDataRequest {
@@ -15,10 +15,14 @@ message SensorDataRequest {
   string timestamp = 5;
 }
 
-message SensorDecisionResponse {
+message DecisionResponse {
   bool should_execute = 1;
-  int64 sensor_id = 2;
-  string sensor_type = 3;
-  string command_action = 4;
-  string command_value = 5;
+  string sensor_type = 2;
+  CommandData command_data = 3;
+}
+
+message CommandData {
+  int64 sensor_id = 1;
+  string command_action = 2;
+  string command_value = 3;
 }

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "RUT.smart_home_command_service";
+
+service CommandService {
+  rpc BuildCommand (CommandRequest) returns (CommandResponse) {}
+}
+
+message CommandRequest {
+  int64 sensor_id = 1;
+  string sensor_type = 2;
+  double value = 3;
+}
+
+message CommandResponse {
+  string command_action = 1;
+  string command_value = 2;
+}
