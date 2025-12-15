@@ -2,7 +2,6 @@ package RUT.smart_home;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
 
 @SpringBootApplication(scanBasePackages = {"RUT.smart_home", "RUT.smart_home_contract", "RUT.smart_home_events_contract"})

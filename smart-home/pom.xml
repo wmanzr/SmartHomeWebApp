@@ -131,10 +131,14 @@
 			<version>${grpc.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>jakarta.annotation</groupId>
-			<artifactId>jakarta.annotation-api</artifactId>
-			<version>1.3.5</version>
-			<optional>true</optional>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>1.3.2</version>
 		</dependency>
 
 		<dependency>
@@ -144,18 +148,39 @@
 		</dependency>
 
 		<dependency>
-			<groupId>RUT.smart_home</groupId>
+			<groupId>RUT</groupId>
 			<artifactId>smart-home-events-contract</artifactId>
-			<version>1.7</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/smart-home-events-contract.jar</systemPath>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>RUT</groupId>
+			<artifactId>smart-home-contract</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>RUT.smart_home</groupId>
-			<artifactId>smart-home-contract</artifactId>
-			<version>1.6.5</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/smart-home-contract.jar</systemPath>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-tracing-bridge-brave</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.zipkin.reporter2</groupId>
+			<artifactId>zipkin-reporter-brave</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>7.4</version>
 		</dependency>
 	</dependencies>
 
@@ -185,6 +210,13 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<parameters>true</parameters>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

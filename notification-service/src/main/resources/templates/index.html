@@ -26,7 +26,10 @@
 
     function connect() {
         // Подключение к нашему новому сервису
-        socket = new WebSocket('ws://localhost:8083/ws/notifications');
+        // Автоматически определяем хост и порт из текущего URL
+        const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const wsHost = window.location.host;
+        socket = new WebSocket(`${wsProtocol}//${wsHost}/ws/notifications`);
 
         socket.onopen = () => {
             statusDiv.innerText = 'Подключено к системе событий';

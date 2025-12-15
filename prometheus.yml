@@ -1,0 +1,29 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: "smart-home"
+    metrics_path: "/actuator/prometheus"
+    static_configs:
+      - targets: ["smart-home:8080"]
+
+  - job_name: "notification-service"
+    metrics_path: "/actuator/prometheus"
+    static_configs:
+      - targets: ["notification-service:8082"]
+
+  - job_name: "smart-home-audit-service"
+    metrics_path: "/actuator/prometheus"
+    static_configs:
+      - targets: ["smart-home-audit-service:8081"]
+
+  - job_name: "smart-home-analytics-service"
+    metrics_path: "/actuator/prometheus"
+    static_configs:
+      - targets: ["smart-home-analytics-service:8083"]
+
+  - job_name: "smart-home-command-service"
+    metrics_path: "/actuator/prometheus"
+    static_configs:
+      - targets: ["smart-home-command-service:8084"]

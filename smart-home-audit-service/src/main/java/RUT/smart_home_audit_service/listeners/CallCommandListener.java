@@ -1,7 +1,6 @@
 package RUT.smart_home_audit_service.listeners;
 
 import RUT.smart_home_events_contract.events.CallCommandEventFromSensorReading;
-import RUT.smart_home_events_contract.events.CommandStatusUpdatedEvent;
 import com.rabbitmq.client.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

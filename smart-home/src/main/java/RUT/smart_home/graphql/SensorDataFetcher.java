@@ -5,10 +5,7 @@ import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 import RUT.smart_home.service.SensorService;
-import RUT.smart_home.service.SensorReadingService;
 import RUT.smart_home_contract.api.dto.*;
-import RUT.smart_home_contract.api.dto.SensorReadingResponse;
-import RUT.smart_home_contract.api.dto.SensorResponse;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
