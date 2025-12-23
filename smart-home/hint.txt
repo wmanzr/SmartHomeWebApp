@@ -1,0 +1,32 @@
+11378 - ID DashBoard
+
+GitHub Integration
+Pipeline
+Maven Integration
+Workspace Cleanup
+
+# Jenkins
+Общие настройки:
+✔️ Do not allow concurrent builds
+Триггеры:
+✔️ Опрашивать SCM об изменениях
+* * * * *
+
+
+Pipeline script from SCM
+git
+https://github.com/wmanzr/SmartHomeWebApp.git
+*/main
+
+Script Path:
+Jenkinsfile
+
+В самом Jenkins в настройках найти Tools и скачать Maven
+
+http://host.docker.internal:9090
+
+http://localhost:8080/swagger-ui/index.html
+
+count(http_server_requests_seconds_count) by (uri)
+
+mvn clean package -DskipTests

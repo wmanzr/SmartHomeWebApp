@@ -1,0 +1,14 @@
+github
+workflow-aggregator
+workflow-job
+workflow-cps
+pipeline-model-definition
+docker-workflow
+maven-plugin
+jdk-tool
+pipeline-stage-view
+cloudbees-folder
+github-branch-source
+pipeline-github-lib
+ws-cleanup
+

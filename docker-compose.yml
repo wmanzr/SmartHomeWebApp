@@ -1,10 +1,31 @@
 version: "3.8"
 
 services:
+  # CI/CD
+  jenkins:
+    build:
+      context: .
+      dockerfile: jenkins.Dockerfile
+    container_name: jenkins-smart-home
+    restart: unless-stopped
+    user: root
+    ports:
+      - "8085:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./jenkins-plugins.txt:/usr/share/jenkins/ref/plugins.txt
+    networks:
+      - microservices-net
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+
   # База данных
   postgres:
     image: postgres:15-alpine
     container_name: postgres-smart-home
+    restart: always
     environment:
       POSTGRES_DB: smart_home
       POSTGRES_USER: postgres
@@ -62,10 +83,6 @@ services:
       - '--storage.tsdb.path=/prometheus'
     networks:
       - microservices-net
-    depends_on:
-      - smart-home
-      - notification-service
-      - smart-home-audit-service
 
   grafana:
     image: grafana/grafana:latest
@@ -83,110 +100,12 @@ services:
     depends_on:
       - prometheus
 
-  # CI/CD
-  jenkins:
-    image: jenkins/jenkins:lts
-    container_name: jenkins-smart-home
-    user: root
-    ports:
-      - "8085:8080"
-      - "50000:50000"
-    volumes:
-      - jenkins_data:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
-    networks:
-      - microservices-net
-
-  # МИКРОСЕРВИСЫ
-  smart-home-command-service:
-    build: ./smart-home-command-service
-    container_name: smart-home-command-service
-    ports:
-      - "9092:9092"
-    environment:
-      - SPRING_RABBITMQ_HOST=rabbitmq
-      - GRPC_SERVER_PORT=9092
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
-    networks:
-      - microservices-net
-
-  smart-home-analytics-service:
-    build: ./smart-home-analytics-service
-    container_name: smart-home-analytics-service
-    ports:
-      - "9091:9091"
-    environment:
-      - SPRING_RABBITMQ_HOST=rabbitmq
-      - GRPC_SERVER_PORT=9091
-      - GRPC_CLIENT_COMMAND_SERVICE_ADDRESS=static://smart-home-command-service:9092
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
-      smart-home-command-service:
-        condition: service_started
-    networks:
-      - microservices-net
-
-  smart-home:
-    build: ./smart-home
-    container_name: smart-home
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/smart_home
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=postgres
-      - SPRING_RABBITMQ_HOST=rabbitmq
-      - GRPC_CLIENT_ANALYTICS_SERVICE_ADDRESS=static://smart-home-analytics-service:9091
-      - SERVER_PORT=8080
-    depends_on:
-      postgres:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
-      smart-home-analytics-service:
-        condition: service_started
-    networks:
-      - microservices-net
-
-  smart-home-audit-service:
-    build: ./smart-home-audit-service
-    container_name: smart-home-audit-service
-    ports:
-      - "8081:8081"
-    environment:
-      - SPRING_RABBITMQ_HOST=rabbitmq
-      - SERVER_PORT=8081
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
-    networks:
-      - microservices-net
-
-  notification-service:
-    build: ./notification-service
-    container_name: notification-service
-    ports:
-      - "8082:8082"
-    environment:
-      - SPRING_RABBITMQ_HOST=rabbitmq
-      - SERVER_PORT=8082
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
-    networks:
-      - microservices-net
-
 volumes:
   postgres_data:
   prometheus_data:
   grafana_data:
-  jenkins_data:
+  jenkins_home:
 
 networks:
   microservices-net:
-    driver: bridge
+    external: true

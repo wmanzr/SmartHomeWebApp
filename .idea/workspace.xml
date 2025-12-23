@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="472266cd-11e2-427d-b855-6b8a7c31c2e8" name="Changes" comment="Jenkins v.2 ready" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;wmanzr&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/wmanzr/SmartHomeWebApp&quot;,
+    &quot;accountId&quot;: &quot;6bd755ba-c2f0-4b81-82f6-9216bc7c208f&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="36TNbfGvzEVbuwIYGdQUhrnqZfE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.SmartHomeAnalyticsServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SmartHomeApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SmartHomeAuditServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.api | #1.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.smart-home [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.smart-home [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.smart-home [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.smart-home [validate].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/roman/Files/SOP&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="KtorApplicationConfigurationType" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.SmartHomeApplication">
+    <configuration name="api | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/api.http" executionIdentifier="#1" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="SOP" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="SOP" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="NotificationServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="notification-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="RUT.notificationservice.NotificationServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SmartHomeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="smart-home" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="RUT.smart_home.SmartHomeApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SmartHomeAuditServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="smart-home-audit-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="RUT.smart_home_audit_service.SmartHomeAuditServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="HTTP Request.api | #1" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-cffe25b9f5b3-intellij.indexing.shared.core-IU-253.28294.334" />
+        <option value="bundled-js-predefined-d6986cc7102b-c7e53b3be11b-JavaScript-IU-253.28294.334" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="472266cd-11e2-427d-b855-6b8a7c31c2e8" name="Changes" comment="" />
+      <created>1765026673141</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1765026673141</updated>
+      <workItem from="1765392217212" duration="1517000" />
+      <workItem from="1765613985366" duration="512000" />
+      <workItem from="1765739495957" duration="2437000" />
+      <workItem from="1765791323719" duration="10372000" />
+      <workItem from="1765874042423" duration="324000" />
+      <workItem from="1765906582295" duration="482000" />
+      <workItem from="1765917248184" duration="8000" />
+    </task>
+    <task id="LOCAL-00001" summary="create notification-service">
+      <option name="closed" value="true" />
+      <created>1765392552564</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1765392552564</updated>
+    </task>
+    <task id="LOCAL-00002" summary="edit audit-service">
+      <option name="closed" value="true" />
+      <created>1765392725811</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1765392725811</updated>
+    </task>
+    <task id="LOCAL-00003" summary="edit contract-service">
+      <option name="closed" value="true" />
+      <created>1765392806291</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1765392806291</updated>
+    </task>
+    <task id="LOCAL-00004" summary="edit rest smart-home-service">
+      <option name="closed" value="true" />
+      <created>1765392863103</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1765392863103</updated>
+    </task>
+    <task id="LOCAL-00005" summary="edit grpc-service">
+      <option name="closed" value="true" />
+      <created>1765392939409</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1765392939409</updated>
+    </task>
+    <task id="LOCAL-00006" summary="edit notification-service">
+      <option name="closed" value="true" />
+      <created>1765392976453</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1765392976453</updated>
+    </task>
+    <task id="LOCAL-00007" summary="create grpc-command-service">
+      <option name="closed" value="true" />
+      <created>1765614076833</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1765614076833</updated>
+    </task>
+    <task id="LOCAL-00008" summary="edit proto">
+      <option name="closed" value="true" />
+      <created>1765614114157</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1765614114157</updated>
+    </task>
+    <task id="LOCAL-00009" summary="edit properties">
+      <option name="closed" value="true" />
+      <created>1765614132886</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1765614132886</updated>
+    </task>
+    <task id="LOCAL-00010" summary="edit logic call method grpc">
+      <option name="closed" value="true" />
+      <created>1765614197975</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1765614197975</updated>
+    </task>
+    <task id="LOCAL-00011" summary="edit proto and properties">
+      <option name="closed" value="true" />
+      <created>1765614237829</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1765614237829</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add analyzer grpc service">
+      <option name="closed" value="true" />
+      <created>1765614348730</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1765614348730</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add mvnw">
+      <option name="closed" value="true" />
+      <created>1765614362199</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1765614362199</updated>
+    </task>
+    <task id="LOCAL-00014" summary="preparation for adminka">
+      <option name="closed" value="true" />
+      <created>1765791547844</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1765791547844</updated>
+    </task>
+    <task id="LOCAL-00015" summary="edit Jenkinsfile">
+      <option name="closed" value="true" />
+      <created>1765796694453</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1765796694453</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Jenkins test 2">
+      <option name="closed" value="true" />
+      <created>1765796943670</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1765796943670</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Jenkins test 3">
+      <option name="closed" value="true" />
+      <created>1765797859036</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1765797859036</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Jenkins test 4">
+      <option name="closed" value="true" />
+      <created>1765798261945</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1765798261945</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Jenkins test 5">
+      <option name="closed" value="true" />
+      <created>1765799869807</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1765799869807</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Jenkins test 6">
+      <option name="closed" value="true" />
+      <created>1765800178571</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1765800178571</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Jenkins test 7">
+      <option name="closed" value="true" />
+      <created>1765800578846</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1765800578846</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Jenkins test 8">
+      <option name="closed" value="true" />
+      <created>1765801382271</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1765801382271</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Jenkins v.1 ready">
+      <option name="closed" value="true" />
+      <created>1765804020633</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1765804020633</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Jenkins v.2 ready">
+      <option name="closed" value="true" />
+      <created>1765804501509</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1765804501509</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="Jenkinsfile" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="create notification-service" />
+    <MESSAGE value="edit audit-service" />
+    <MESSAGE value="edit contract-service" />
+    <MESSAGE value="edit rest smart-home-service" />
+    <MESSAGE value="edit grpc-service" />
+    <MESSAGE value="edit notification-service" />
+    <MESSAGE value="create grpc-command-service" />
+    <MESSAGE value="edit proto" />
+    <MESSAGE value="edit properties" />
+    <MESSAGE value="edit logic call method grpc" />
+    <MESSAGE value="edit proto and properties" />
+    <MESSAGE value="add analyzer grpc service" />
+    <MESSAGE value="add mvnw" />
+    <MESSAGE value="preparation for adminka" />
+    <MESSAGE value="edit Jenkinsfile" />
+    <MESSAGE value="Jenkins test 2" />
+    <MESSAGE value="Jenkins test 3" />
+    <MESSAGE value="Jenkins test 4" />
+    <MESSAGE value="Jenkins test 5" />
+    <MESSAGE value="Jenkins test 6" />
+    <MESSAGE value="Jenkins test 7" />
+    <MESSAGE value="Jenkins test 8" />
+    <MESSAGE value="Jenkins v.1 ready" />
+    <MESSAGE value="Jenkins v.2 ready" />
+    <option name="LAST_COMMIT_MESSAGE" value="Jenkins v.2 ready" />
+  </component>
+</project>

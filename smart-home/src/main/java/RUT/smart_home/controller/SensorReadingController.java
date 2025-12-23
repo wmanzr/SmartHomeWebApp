@@ -71,7 +71,7 @@ public class SensorReadingController implements SensorReadingApi {
     @GrpcClient("analytics-service")
     private SensorAnalyticsServiceGrpc.SensorAnalyticsServiceBlockingStub analyticsStub;
 
-    @PostMapping("/api/readings/{id}/call-command")
+    @PostMapping("/{id}/call-command")
     public String callCommand(@PathVariable Long id) {
         var reading = sensorReadingService.getById(id);
 
