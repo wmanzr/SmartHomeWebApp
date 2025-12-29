@@ -3,6 +3,7 @@ package RUT.smart_home_analytics_service;
 import RUT.smart_home_command_service.CommandServiceGrpc;
 import RUT.smart_home_command_service.CommandRequest;
 import RUT.smart_home_command_service.CommandResponse;
+import RUT.smart_home_contract.api.dto.SensorType;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import net.devh.boot.grpc.client.inject.GrpcClient;
@@ -51,12 +52,12 @@ public class SensorAnalyticsServiceImpl extends SensorAnalyticsServiceGrpc.Senso
     }
 
     private SensorAnalyzer getAnalyzer(String sensorType) {
-        return switch (sensorType.toUpperCase()) {
-            case "TEMPERATURE" -> temperatureAnalyzer;
-            case "HUMIDITY" -> humidityAnalyzer;
-            case "MOTION" -> motionAnalyzer;
-            case "LIGHT_LEVEL" -> lightLevelAnalyzer;
-            default -> throw new IllegalArgumentException("Unknown sensor type: " + sensorType);
+        SensorType type = SensorType.valueOf(sensorType.toUpperCase());
+        return switch (type) {
+            case TEMPERATURE -> temperatureAnalyzer;
+            case HUMIDITY -> humidityAnalyzer;
+            case MOTION -> motionAnalyzer;
+            case LIGHT_LEVEL -> lightLevelAnalyzer;
         };
     }
 }
