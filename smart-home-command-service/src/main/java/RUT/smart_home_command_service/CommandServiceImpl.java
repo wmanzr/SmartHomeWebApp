@@ -1,5 +1,6 @@
 package RUT.smart_home_command_service;
 
+import RUT.smart_home_contract.api.dto.SensorType;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
@@ -29,12 +30,12 @@ public class CommandServiceImpl extends CommandServiceGrpc.CommandServiceImplBas
     }
 
     private CommandBuilder getBuilder(String sensorType) {
-        return switch (sensorType.toUpperCase()) {
-            case "TEMPERATURE" -> temperatureBuilder;
-            case "HUMIDITY" -> humidityBuilder;
-            case "MOTION" -> motionBuilder;
-            case "LIGHT_LEVEL" -> lightLevelBuilder;
-            default -> throw new IllegalArgumentException("Unknown sensor type: " + sensorType);
+        SensorType type = SensorType.valueOf(sensorType.toUpperCase());
+        return switch (type) {
+            case TEMPERATURE -> temperatureBuilder;
+            case HUMIDITY -> humidityBuilder;
+            case MOTION -> motionBuilder;
+            case LIGHT_LEVEL -> lightLevelBuilder;
         };
     }
 }
