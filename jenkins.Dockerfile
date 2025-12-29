@@ -13,6 +13,5 @@ RUN apt-get update && \
 
 USER jenkins
 
-# Копируем файл с плагинами и устанавливаем их
 COPY jenkins-plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
