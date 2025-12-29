@@ -4,5 +4,8 @@ import java.io.Serializable;
 
 public record DeviceStatusUpdatedEvent(
         Long deviceId,
-        String newStatus
+        String deviceName,
+        String deviceType,
+        String newStatus,
+        String metadata
 ) implements Serializable {}
