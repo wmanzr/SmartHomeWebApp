@@ -5,5 +5,9 @@ public enum DeviceStatus {
     OFF,
     STANDBY,
     ERROR,
-    UNKNOWN
+    UNKNOWN,
+    OPEN,
+    CLOSED,
+    ACTIVE,
+    INACTIVE
 }

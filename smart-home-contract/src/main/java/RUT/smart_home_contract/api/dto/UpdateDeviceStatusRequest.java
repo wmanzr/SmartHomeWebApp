@@ -4,5 +4,6 @@ import jakarta.validation.constraints.NotNull;
 
 public record UpdateDeviceStatusRequest(
         @NotNull(message = "Статус обязателен")
-        DeviceStatus status
+        DeviceStatus status,
+        String metadata
 ) {}
