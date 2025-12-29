@@ -24,4 +24,8 @@ public class CommandRepositoryImpl extends BaseRepository<Command, Long> impleme
     public List<Command> findAll() {
         return super.findAll();
     }
+    @Override
+    public Command update(Command command) {
+        return super.update(command);
+    }
 }

@@ -45,7 +45,8 @@ public class DeviceDataFetcher {
     @Transactional
     public DeviceResponse updateDeviceStatus(@InputArgument Long id, @InputArgument("input") Map<String, Object> input) {
         UpdateDeviceStatusRequest request = new UpdateDeviceStatusRequest(
-                DeviceStatus.valueOf(((String) input.get("status")).toUpperCase())
+                DeviceStatus.valueOf(((String) input.get("status")).toUpperCase()),
+                (String) input.getOrDefault("metadata", null)
         );
         return deviceService.updateStatus(id, request);
     }

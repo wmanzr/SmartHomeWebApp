@@ -84,10 +84,18 @@ public class DeviceServiceImpl implements DeviceService {
     public DeviceResponse updateStatus(Long id, UpdateDeviceStatusRequest request) {
         Device device = deviceRepository.findById(id);
         device.setStatus(request.status());
+        if (request.metadata() != null) {
+            device.setMetadata(request.metadata());
+        } else {
+            device.setMetadata(null);
+        }
         Device updated = deviceRepository.update(device);
         DeviceStatusUpdatedEvent event = new DeviceStatusUpdatedEvent(
                 updated.getId(),
-                updated.getStatus().toString()
+                updated.getName(),
+                updated.getType().toString(),
+                updated.getStatus().toString(),
+                updated.getMetadata()
         );
         rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.ROUTING_KEY_DEVICE_STATUS_UPDATED, event);
 

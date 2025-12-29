@@ -8,4 +8,5 @@ public interface CommandRepository {
     void create(Command command);
     Command findById(Long id);
     List<Command> findAll();
+    Command update(Command command);
 }

@@ -9,6 +9,7 @@ import RUT.smart_home.service.DeviceService;
 import RUT.smart_home_contract.api.dto.*;
 import RUT.smart_home_contract.api.exception.ResourceNotFoundException;
 import RUT.smart_home_events_contract.events.CommandCreatedEvent;
+import RUT.smart_home_events_contract.events.CommandStatusUpdatedEvent;
 import org.modelmapper.ModelMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -100,5 +101,28 @@ public class CommandServiceImpl implements CommandService {
         rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.ROUTING_KEY_COMMAND_CREATED, event);
 
         return modelMapper.map(cmd, CommandResponse.class);
+    }
+
+    @Override
+    @Transactional
+    public void updateStatus(Long id, UpdateCommandStatusRequest request) {
+        Command command = commandRepository.findById(id);
+        if (command == null) {
+            throw new ResourceNotFoundException("Command", id);
+        }
+        CommandStatus oldStatus = command.getStatus();
+        command.setStatus(request.status());
+        if (request.message() != null) {
+            command.setMessage(request.message());
+        }
+        Command updated = commandRepository.update(command);
+
+        CommandStatusUpdatedEvent event =
+                new CommandStatusUpdatedEvent(
+                        updated.getId(),
+                        oldStatus.toString(),
+                        updated.getStatus().toString()
+                );
+        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.ROUTING_KEY_COMMAND_STATUS_UPDATED, event);
     }
 }
