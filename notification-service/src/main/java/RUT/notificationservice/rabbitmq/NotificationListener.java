@@ -1,7 +1,7 @@
 package RUT.notificationservice.rabbitmq;
 
 import RUT.notificationservice.websocket.NotificationHandler;
-import RUT.smart_home_events_contract.events.CallCommandEventFromSensorReading;
+import RUT.smart_home_events_contract.events.DeviceStatusUpdatedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.Exchange;
@@ -23,16 +23,22 @@ public class NotificationListener {
     @RabbitListener(
             bindings = @QueueBinding(
                     value = @Queue(name = "q.notifications.browser", durable = "true"),
-                    exchange = @Exchange(name = "analytics-fanout", type = "fanout")
+                    exchange = @Exchange(name = "smart-home-exchange", type = "topic"),
+                    key = "device.status.updated"
             )
     )
-    public void handleUserRatedEvent(CallCommandEventFromSensorReading event) {
+    public void handleUserRatedEvent(DeviceStatusUpdatedEvent event) {
         log.info("Received event from RabbitMQ: {}", event);
 
         // Формируем сообщение для пользователя
         String userMessage = String.format(
-                "{\"type\": \"Required command for\", \"deviceId\": %d, \"commandAction\": \"%s\", \"timestamp\": \"%s\"}",
-                event.deviceId(), event.commandAction().toString(), event.timestamp()
+                "{\"type\": \"device_status_changed\", \"deviceId\": %d, \"deviceName\": \"%s\", \"deviceType\": \"%s\", \"newStatus\": \"%s\", \"metadata\": %s, \"timestamp\": \"%s\"}",
+                event.deviceId(),
+                event.deviceName() != null ? event.deviceName() : "",
+                event.deviceType() != null ? event.deviceType() : "",
+                event.newStatus() != null ? event.newStatus() : "",
+                event.metadata() != null ? "\"" + event.metadata() + "\"" : "null",
+                System.currentTimeMillis()
         );
 
         // Отправляем в браузер

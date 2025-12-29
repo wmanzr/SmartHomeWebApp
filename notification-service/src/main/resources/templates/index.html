@@ -40,7 +40,7 @@
             const data = JSON.parse(event.data);
             console.log("Получено событие:", data);
 
-            if (data.type === 'Required command for') {
+            if (data.type === 'device_status_changed') {
                 showNotification(data);
             }
         };
@@ -68,11 +68,12 @@
                 second: '2-digit'
             });
 
-        div.className = `notification verdict-${data.commandAction}`;
+        div.className = 'notification';
         div.innerHTML = `
-            <strong> Требуется команда для устройства с ID: ${data.deviceId}</strong><br>
-            Требуется действие: <b>${data.commandAction}</b><br>
-            Временная метка: ${readableTime}
+            <strong>${data.deviceName}</strong> (${data.deviceType})<br>
+            Статус: <b>${data.newStatus}</b><br>
+            ${data.metadata && data.metadata !== 'null' && data.metadata !== '' ? `Параметр: ${data.metadata}<br>` : ''}
+            <small style="color: #666;">${readableTime}</small>
         `;
         area.prepend(div);
     }
