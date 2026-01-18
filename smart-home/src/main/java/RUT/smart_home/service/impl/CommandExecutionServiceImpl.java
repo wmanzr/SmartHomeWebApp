@@ -58,11 +58,15 @@ public class CommandExecutionServiceImpl implements CommandExecutionService {
             return false;
         }
 
-        if (targetMetadata != null && !targetMetadata.equals(device.getMetadata())) {
+        String deviceMetadata = device.getMetadata();
+        if (targetMetadata == null && deviceMetadata == null) {
+            return true;
+        }
+        if (targetMetadata == null || deviceMetadata == null) {
             return false;
         }
 
-        return true;
+        return targetMetadata.equals(deviceMetadata);
     }
 
     private DeviceStatus determineDeviceStatus(CommandAction action, DeviceType deviceType) {

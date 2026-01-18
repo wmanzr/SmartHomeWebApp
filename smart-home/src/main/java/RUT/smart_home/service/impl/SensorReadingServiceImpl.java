@@ -135,7 +135,7 @@ public class SensorReadingServiceImpl implements SensorReadingService {
             return DeviceType.CONDITIONER;
         } else if (sensor.equals("humidity")) {
             return DeviceType.HUMIDIFIER;
-        } else if (action.equals("open_blinds") || action.equals("close_blinds")) {
+        } else if (action.equals("OPEN_BLINDS") || action.equals("CLOSE_BLINDS")) {
             return DeviceType.BLINDS;
         } else return DeviceType.ALARM;
     }
