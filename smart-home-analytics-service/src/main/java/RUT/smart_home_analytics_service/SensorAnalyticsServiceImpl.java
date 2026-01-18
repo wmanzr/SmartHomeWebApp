@@ -1,8 +1,8 @@
 package RUT.smart_home_analytics_service;
 
 import RUT.smart_home_command_service.CommandServiceGrpc;
-import RUT.smart_home_command_service.CommandRequest;
-import RUT.smart_home_command_service.CommandResponse;
+import RUT.smart_home_command_service.CommandHomeRequest;
+import RUT.smart_home_command_service.CommandHomeResponse;
 import RUT.smart_home_contract.api.dto.SensorType;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
@@ -29,13 +29,13 @@ public class SensorAnalyticsServiceImpl extends SensorAnalyticsServiceGrpc.Senso
                     .setSensorType(request.getSensorType());
 
             if (shouldExecute) {
-                CommandRequest commandRequest = CommandRequest.newBuilder()
+                CommandHomeRequest commandRequest = CommandHomeRequest.newBuilder()
                         .setSensorId(request.getSensorId())
                         .setSensorType(request.getSensorType())
                         .setValue(request.getValue())
                         .build();
 
-                CommandResponse commandResponse = commandStub.buildCommand(commandRequest);
+                CommandHomeResponse commandResponse = commandStub.buildCommand(commandRequest);
                 CommandData commandData = CommandData.newBuilder()
                         .setSensorId(request.getSensorId())
                         .setCommandAction(commandResponse.getCommandAction())

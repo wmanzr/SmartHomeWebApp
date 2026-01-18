@@ -10,7 +10,7 @@ class TemperatureCommandBuilder implements CommandBuilder {
             return new CommandData("SET_TEMPERATURE", "21.0");
         }
         if (temperature < SensorThresholds.TEMPERATURE_LOW) {
-            return new CommandData("SET_TEMPERATURE", "22.0");
+            return new CommandData("SET_TEMPERATURE", "23.0");
         }
         return new CommandData("TURN_OFF", "");
     }

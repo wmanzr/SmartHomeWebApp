@@ -12,12 +12,12 @@ public class CommandServiceImpl extends CommandServiceGrpc.CommandServiceImplBas
     private final LightLevelCommandBuilder lightLevelBuilder = new LightLevelCommandBuilder();
 
     @Override
-    public void buildCommand(CommandRequest request, StreamObserver<CommandResponse> responseObserver) {
+    public void buildCommand(CommandHomeRequest request, StreamObserver<CommandHomeResponse> responseObserver) {
         try {
             CommandBuilder builder = getBuilder(request.getSensorType());
             CommandData command = builder.build(request.getValue());
 
-            CommandResponse response = CommandResponse.newBuilder()
+            CommandHomeResponse response = CommandHomeResponse.newBuilder()
                     .setCommandAction(command.action())
                     .setCommandValue(command.value())
                     .build();
