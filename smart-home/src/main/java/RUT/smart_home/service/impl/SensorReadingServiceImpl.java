@@ -112,10 +112,12 @@ public class SensorReadingServiceImpl implements SensorReadingService {
 
         var commandData = response.getCommandData();
         DeviceType targetDeviceType = determineDeviceType(response.getSensorType(), commandData.getCommandAction());
-        Device targetDevice = findDeviceByType(targetDeviceType);
+        String sensorLocation = reading.getSensor() != null ? reading.getSensor().getLocation() : null;
+        Device targetDevice = findDeviceByType(targetDeviceType, sensorLocation);
 
         if (targetDevice == null) {
-            throw new ResourceNotFoundException("Device", targetDevice.getId());}
+            throw new ResourceNotFoundException("Device", "типа " + targetDeviceType);
+        }
 
         return new CallCommandEventFromSensorReading(
                 targetDevice.getId(),
@@ -140,8 +142,20 @@ public class SensorReadingServiceImpl implements SensorReadingService {
         } else return DeviceType.ALARM;
     }
 
-    private Device findDeviceByType(DeviceType deviceType) {
+    private Device findDeviceByType(DeviceType deviceType, String location) {
         List<Device> allDevices = deviceRepository.findAll();
+        
+        if (location != null && !location.isEmpty()) {
+            Device deviceInLocation = allDevices.stream()
+                    .filter(device -> device.getType() == deviceType 
+                            && location.equals(device.getLocation()))
+                    .findFirst()
+                    .orElse(null);
+            if (deviceInLocation != null) {
+                return deviceInLocation;
+            }
+        }
+        
         return allDevices.stream()
                 .filter(device -> device.getType() == deviceType)
                 .findFirst()

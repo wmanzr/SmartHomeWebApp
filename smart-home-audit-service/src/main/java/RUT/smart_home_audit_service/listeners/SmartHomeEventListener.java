@@ -45,7 +45,6 @@ public class SmartHomeEventListener {
                 return;
             }
             log.info("Получено событие создания устройства: {}", event);
-            // TODO
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
             log.error("Ошибка при обработке события: {}. Отправляем в DLQ.", event, e);
@@ -71,7 +70,6 @@ public class SmartHomeEventListener {
                                           @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) throws IOException {
         try {
             log.info("Получено событие обновления статуса устройства: {}", event);
-            // TODO
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
             log.error("Ошибка при обработке события: {}. Отправляем в DLQ.", event, e);
@@ -97,7 +95,6 @@ public class SmartHomeEventListener {
                                     @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) throws IOException {
         try {
             log.info("Получено событие удаления устройства: {}", event);
-            // TODO
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
             log.error("Ошибка при обработке события: {}. Отправляем в DLQ.", event, e);
@@ -128,7 +125,6 @@ public class SmartHomeEventListener {
                 return;
             }
             log.info("Получено событие создания датчика: {}", event);
-            // TODO
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
             log.error("Ошибка при обработке события: {}. Отправляем в DLQ.", event, e);
@@ -154,7 +150,6 @@ public class SmartHomeEventListener {
                                     @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) throws IOException {
         try {
             log.info("Получено событие обновления датчика: {}", event);
-            // TODO
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
             log.error("Ошибка при обработке события: {}. Отправляем в DLQ.", event, e);
@@ -180,7 +175,6 @@ public class SmartHomeEventListener {
                                     @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) throws IOException {
         try {
             log.info("Получено событие удаления датчика: {}", event);
-            // TODO
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
             log.error("Ошибка при обработке события: {}. Отправляем в DLQ.", event, e);
@@ -211,7 +205,6 @@ public class SmartHomeEventListener {
                 return;
             }
             log.info("Получено событие создания показания датчика: {}", event);
-            // TODO
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
             log.error("Ошибка при обработке события: {}. Отправляем в DLQ.", event, e);
@@ -242,7 +235,6 @@ public class SmartHomeEventListener {
                 return;
             }
             log.info("Получено событие создания команды: {}", event);
-            // TODO
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
             log.error("Ошибка при обработке события: {}. Отправляем в DLQ.", event, e);
@@ -268,7 +260,6 @@ public class SmartHomeEventListener {
                                            @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) throws IOException {
         try {
             log.info("Получено событие обновления статуса команды: {}", event);
-            // TODO
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
             log.error("Ошибка при обработке события: {}. Отправляем в DLQ.", event, e);

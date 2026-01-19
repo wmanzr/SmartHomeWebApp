@@ -30,7 +30,6 @@ public class NotificationListener {
     public void handleUserRatedEvent(DeviceStatusUpdatedEvent event) {
         log.info("Received event from RabbitMQ: {}", event);
 
-        // Формируем сообщение для пользователя
         String userMessage = String.format(
                 "{\"type\": \"device_status_changed\", \"deviceId\": %d, \"deviceName\": \"%s\", \"deviceType\": \"%s\", \"newStatus\": \"%s\", \"metadata\": %s, \"timestamp\": \"%s\"}",
                 event.deviceId(),
@@ -41,7 +40,6 @@ public class NotificationListener {
                 System.currentTimeMillis()
         );
 
-        // Отправляем в браузер
         notificationHandler.broadcast(userMessage);
     }
 }

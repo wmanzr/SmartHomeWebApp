@@ -4,6 +4,7 @@ import RUT.smart_home.service.CommandExecutionService;
 import RUT.smart_home.service.CommandService;
 import RUT.smart_home.service.DeviceService;
 import RUT.smart_home_contract.api.dto.CommandAction;
+import RUT.smart_home_contract.api.dto.CommandRequest;
 import RUT.smart_home_contract.api.dto.CommandStatus;
 import RUT.smart_home_contract.api.dto.DeviceResponse;
 import RUT.smart_home_contract.api.dto.DeviceStatus;
@@ -13,10 +14,15 @@ import RUT.smart_home_contract.api.dto.UpdateDeviceStatusRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 @Service
 public class CommandExecutionServiceImpl implements CommandExecutionService {
     private final CommandService commandService;
     private final DeviceService deviceService;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public CommandExecutionServiceImpl(CommandService commandService, DeviceService deviceService) {
         this.commandService = commandService;
@@ -47,6 +53,11 @@ public class CommandExecutionServiceImpl implements CommandExecutionService {
 
             commandService.updateStatus(commandId, new UpdateCommandStatusRequest(CommandStatus.SUCCESS, null));
 
+            if (deviceType == DeviceType.ALARM && action == CommandAction.ACTIVATE_ALARM) {
+                scheduler.schedule(() -> {
+                    commandService.create(new CommandRequest(device.getId(), CommandAction.DEACTIVATE_ALARM, null));
+                }, 2, TimeUnit.MINUTES);
+            }
         } catch (Exception e) {
             commandService.updateStatus(commandId, new UpdateCommandStatusRequest(CommandStatus.FAILED, "Ошибка выполнения: " + e.getMessage()));
             throw e;
