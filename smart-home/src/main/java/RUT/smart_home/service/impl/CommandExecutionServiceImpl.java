@@ -40,10 +40,11 @@ public class CommandExecutionServiceImpl implements CommandExecutionService {
             String value = command.getValue();
 
             DeviceStatus newStatus = determineDeviceStatus(action, deviceType);
-            String metadata = (action == CommandAction.SET_TEMPERATURE && value != null && !value.isEmpty()) ? value : null;
+            String metadata = (action == CommandAction.SET_TEMPERATURE && value != null &&!value.isEmpty()) ? value : null;
 
             if (isDeviceAlreadyInTargetState(device, newStatus, metadata)) {
-                commandService.updateStatus(commandId, new UpdateCommandStatusRequest(CommandStatus.SUCCESS, "Устройство уже находится в требуемом состоянии"));
+                commandService.updateStatus(commandId, new UpdateCommandStatusRequest(
+                        CommandStatus.SUCCESS, "Устройство уже находится в требуемом состоянии"));
                 return;
             }
 
