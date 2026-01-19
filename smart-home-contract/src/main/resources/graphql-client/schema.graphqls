@@ -1,10 +1,8 @@
 enum DeviceType {
-  LIGHT
   CONDITIONER
-  HEATER
-  DOOR_LOCK
-  CAMERA
-  CUSTOM
+  HUMIDIFIER
+  ALARM
+  BLINDS
 }
 
 enum DeviceStatus {
@@ -13,16 +11,21 @@ enum DeviceStatus {
   STANDBY
   ERROR
   UNKNOWN
+  OPEN
+  CLOSED
+  ACTIVE
+  INACTIVE
 }
 
 enum CommandAction {
   TURN_ON
   TURN_OFF
   RESTART
-  LOCK
-  UNLOCK
   SET_TEMPERATURE
-  CUSTOM
+  ACTIVATE_ALARM
+  DEACTIVATE_ALARM
+  OPEN_BLINDS
+  CLOSE_BLINDS
 }
 
 enum CommandStatus {
@@ -36,9 +39,7 @@ enum SensorType {
   TEMPERATURE
   HUMIDITY
   MOTION
-  LIGHT
-  DOOR
-  CUSTOM
+  LIGHT_LEVEL
 }
 
 type Device {
@@ -101,11 +102,17 @@ input DeviceInput {
 
 input UpdateDeviceStatusInput {
   status: DeviceStatus!
+  metadata: String
 }
 
 input SensorInput {
   name: String!
   type: SensorType!
+  location: String!
+}
+
+input UpdateSensorInput {
+  name: String!
   location: String!
 }
 
@@ -142,13 +149,10 @@ type Mutation {
   deleteDevice(id: ID!): ID
 
   createSensor(input: SensorInput!): Sensor
-  updateSensor(id: ID!, input: SensorInput!): Sensor
+  updateSensor(id: ID!, input: UpdateSensorInput!): Sensor
   deleteSensor(id: ID!): ID
 
   createReading(input: SensorReadingInput!): SensorReading
-  deleteReading(id: ID!): ID
 
   createCommand(input: CommandInput!): Command
-  updateCommand(id: ID!, input: CommandInput!): Command
-  deleteCommand(id: ID!): ID
 }
