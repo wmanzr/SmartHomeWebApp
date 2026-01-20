@@ -42,9 +42,11 @@ services:
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_RABBITMQ_HOST=rabbitmq
       - GRPC_CLIENT_ANALYTICS_SERVICE_ADDRESS=static://smart-home-analytics-service:9091
+      - GRPC_CLIENT_COMMAND_SERVICE_ADDRESS=static://smart-home-command-service:9092
       - SERVER_PORT=8080
     depends_on:
       - smart-home-analytics-service
+      - smart-home-command-service
     networks:
       - microservices-net
 
