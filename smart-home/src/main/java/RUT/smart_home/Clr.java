@@ -1,6 +1,9 @@
 package RUT.smart_home;
 
-import RUT.smart_home.entity.*;
+import RUT.smart_home.entity.Command;
+import RUT.smart_home.entity.Sensor;
+import RUT.smart_home.entity.SensorReading;
+import RUT.smart_home.entity.Device;
 import RUT.smart_home.repository.*;
 import RUT.smart_home_contract.api.dto.*;
 import jakarta.persistence.EntityManager;

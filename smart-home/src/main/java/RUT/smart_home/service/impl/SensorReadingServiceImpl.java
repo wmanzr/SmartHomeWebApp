@@ -1,6 +1,6 @@
 package RUT.smart_home.service.impl;
 
-import RUT.smart_home.DecisionResponse;
+import RUT.smart_home.CommandHomeResponse;
 import RUT.smart_home.config.RabbitMQConfig;
 import RUT.smart_home.entity.Device;
 import RUT.smart_home.entity.Sensor;
@@ -104,27 +104,20 @@ public class SensorReadingServiceImpl implements SensorReadingService {
 
     @Override
     @Transactional
-    public CallCommandEventFromSensorReading callCommand(DecisionResponse response, SensorReadingResponse reading) {
-
-        if (!response.getShouldExecute()) {
-            throw new IllegalStateException("Command should not be executed according to analytics decision");
-        }
-
-        var commandData = response.getCommandData();
-        DeviceType targetDeviceType = determineDeviceType(response.getSensorType(), commandData.getCommandAction());
-        String sensorLocation = reading.getSensor() != null ? reading.getSensor().getLocation() : null;
+    public CallCommandEventFromSensorReading callCommand(CommandHomeResponse response, SensorReadingResponse reading) {
+        DeviceType targetDeviceType = determineDeviceType(reading.getSensor().getType().toString(), response.getCommandAction());
+        String sensorLocation = reading.getSensor().getLocation();
         Device targetDevice = findDeviceByType(targetDeviceType, sensorLocation);
 
         if (targetDevice == null) {
-            throw new ResourceNotFoundException("Device", "типа " + targetDeviceType);
+            throw new ResourceNotFoundException("Device", "с типом " + targetDeviceType);
         }
 
         return new CallCommandEventFromSensorReading(
                 targetDevice.getId(),
-                response.getSensorType(),
-                commandData.getCommandValue(),
-                response.getShouldExecute(),
-                commandData.getCommandAction(),
+                reading.getSensor().getType().toString(),
+                response.getCommandValue(),
+                response.getCommandAction(),
                 System.currentTimeMillis()
         );
     }

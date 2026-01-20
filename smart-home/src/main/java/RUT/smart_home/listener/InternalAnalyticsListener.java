@@ -28,7 +28,6 @@ public class InternalAnalyticsListener {
                 "deviceId=" + event.deviceId() +
                 ", sensorType=" + event.sensorType() +
                 ", value=" + event.value() +
-                ", shouldExecute=" + event.shouldExecute() +
                 ", commandAction=" + event.commandAction() +
                 ", timestamp=" + event.timestamp() + " FROM SMART_HOME_REST");
 

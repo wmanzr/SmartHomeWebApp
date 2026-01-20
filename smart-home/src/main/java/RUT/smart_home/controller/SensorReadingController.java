@@ -1,12 +1,14 @@
 package RUT.smart_home.controller;
 
-import RUT.smart_home.CommandData;
 import RUT.smart_home.SensorAnalyticsServiceGrpc;
 import RUT.smart_home.SensorDataRequest;
 import RUT.smart_home.DecisionResponse;
 import RUT.smart_home.assemblers.SensorReadingModelAssembler;
 import RUT.smart_home.config.RabbitMQConfig;
 import RUT.smart_home.service.SensorReadingService;
+import RUT.smart_home.CommandServiceGrpc;
+import RUT.smart_home.CommandHomeRequest;
+import RUT.smart_home.CommandHomeResponse;
 import RUT.smart_home_contract.api.dto.*;
 import RUT.smart_home_contract.api.endpoints.SensorReadingApi;
 import RUT.smart_home_events_contract.events.CallCommandEventFromSensorReading;
@@ -71,37 +73,50 @@ public class SensorReadingController implements SensorReadingApi {
     @GrpcClient("analytics-service")
     private SensorAnalyticsServiceGrpc.SensorAnalyticsServiceBlockingStub analyticsStub;
 
+    @GrpcClient("command-service")
+    private CommandServiceGrpc.CommandServiceBlockingStub commandStub;
+
     @PostMapping("/{id}/call-command")
     public String callCommand(@PathVariable Long id) {
         var reading = sensorReadingService.getById(id);
 
-        SensorDataRequest request = SensorDataRequest.newBuilder()
+        SensorDataRequest analyticsRequest = SensorDataRequest.newBuilder()
                 .setReadingId(id)
                 .setSensorId(reading.getSensor().getId())
                 .setSensorType(reading.getSensor().getType().toString())
                 .setValue(reading.getValue())
                 .setTimestamp(reading.getTimestamp().toString())
                 .build();
+
         try {
-            DecisionResponse decision = analyticsStub.analyzeSensorData(request);
-
-            if (decision.getShouldExecute()) {
-                CommandData commandData = decision.getCommandData();
-                CallCommandEventFromSensorReading event = sensorReadingService.callCommand(decision, reading);
-                rabbitTemplate.convertAndSend(RabbitMQConfig.FANOUT_EXCHANGE, "", event);
-
-                return "Analytics decision: execute=" + decision.getShouldExecute()
-                        + ", action=" + commandData.getCommandAction()
-                        + ", value=" + commandData.getCommandValue();
-            } else {
+            DecisionResponse decision = analyticsStub.analyzeSensorData(analyticsRequest);
+            if (!decision.getShouldExecute()) {
                 return "No action required";
             }
 
+            CommandHomeRequest commandRequest = CommandHomeRequest.newBuilder()
+                    .setSensorId(reading.getSensor().getId())
+                    .setSensorType(reading.getSensor().getType().toString())
+                    .setValue(reading.getValue())
+                    .build();
+
+            CommandHomeResponse commandResponse = commandStub.buildCommand(commandRequest);
+
+            CallCommandEventFromSensorReading event = sensorReadingService.callCommand(commandResponse, reading);
+            rabbitTemplate.convertAndSend(RabbitMQConfig.FANOUT_EXCHANGE, "", event);
+
+            return "Analytics decision: execute=" + decision.getShouldExecute()
+                    + ", action=" + commandResponse.getCommandAction()
+                    + ", value=" + commandResponse.getCommandValue();
+
         } catch (io.grpc.StatusRuntimeException e) {
-            return "ERROR: Analytics service is unavailable. gRPC call failed: "
+            String serviceName = e.getStatus().getCode() == io.grpc.Status.Code.UNAVAILABLE 
+                    ? "Analytics or Command service" 
+                    : "gRPC service";
+            return "ERROR: " + serviceName + " is unavailable. gRPC call failed: "
                     + e.getStatus().getCode() + " - " + e.getStatus().getDescription();
         } catch (Exception e) {
-            return "ERROR: Failed to analyze sensor data: " + e.getMessage();
+            return "ERROR: Failed to process sensor data: " + e.getMessage();
         }
     }
 }

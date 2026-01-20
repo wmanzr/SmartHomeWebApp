@@ -5,7 +5,6 @@ public record CallCommandEventFromSensorReading(
     Long deviceId,
     String sensorType,
     String value,
-    Boolean shouldExecute,
     String commandAction,
     Long timestamp
 ) implements Serializable {}

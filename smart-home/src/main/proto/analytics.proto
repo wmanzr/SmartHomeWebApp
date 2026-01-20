@@ -17,12 +17,4 @@ message SensorDataRequest {
 
 message DecisionResponse {
   bool should_execute = 1;
-  string sensor_type = 2;
-  CommandData command_data = 3;
-}
-
-message CommandData {
-  int64 sensor_id = 1;
-  string command_action = 2;
-  string command_value = 3;
 }
