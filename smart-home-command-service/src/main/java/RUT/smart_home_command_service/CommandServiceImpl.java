@@ -1,6 +1,8 @@
 package RUT.smart_home_command_service;
 
 import RUT.smart_home_contract.api.dto.SensorType;
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
@@ -24,8 +26,18 @@ public class CommandServiceImpl extends CommandServiceGrpc.CommandServiceImplBas
 
             responseObserver.onNext(response);
             responseObserver.onCompleted();
-        } catch (Exception e) {
+        } catch (StatusRuntimeException e) {
             responseObserver.onError(e);
+        } catch (IllegalArgumentException e) {
+            responseObserver.onError(Status.INVALID_ARGUMENT
+                    .withDescription("Invalid request: " + e.getMessage())
+                    .withCause(e)
+                    .asRuntimeException());
+        } catch (Exception e) {
+            responseObserver.onError(Status.INTERNAL
+                    .withDescription("Internal error during command building: " + e.getMessage())
+                    .withCause(e)
+                    .asRuntimeException());
         }
     }
 
